@@ -13,26 +13,28 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
 // porp-types is a library for typechecking of props
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // react-chartjs-2 components
-import { Pie } from "react-chartjs-2";
+import { Pie } from 'react-chartjs-2';
 
 // @mui material components
-import Card from "@mui/material/Card";
-import Icon from "@mui/material/Icon";
+import Card from '@mui/material/Card';
+import Icon from '@mui/material/Icon';
 
 // Material Dashboard 2 React components
-import MDBox from "components/MDBox";
-import MDTypography from "components/MDTypography";
+import MDBox from 'components/MDBox';
+import MDTypography from 'components/MDTypography';
 
 // PieChart configurations
-import configs from "examples/Charts/PieChart/configs";
+import configs from 'examples/Charts/PieChart/configs';
 
-function PieChart({ icon, title, description, height, chart }) {
+function PieChart({
+  icon, title, description, height, chart,
+}) {
   const { data, options } = configs(chart.labels || [], chart.datasets || {});
 
   const renderChart = (
@@ -43,9 +45,9 @@ function PieChart({ icon, title, description, height, chart }) {
             <MDBox
               width="4rem"
               height="4rem"
-              bgColor={icon.color || "info"}
+              bgColor={icon.color || 'info'}
               variant="gradient"
-              coloredShadow={icon.color || "info"}
+              coloredShadow={icon.color || 'info'}
               borderRadius="xl"
               display="flex"
               justifyContent="center"
@@ -73,7 +75,7 @@ function PieChart({ icon, title, description, height, chart }) {
             <Pie data={data} options={options} />
           </MDBox>
         ),
-        [chart, height]
+        [chart, height],
       )}
     </MDBox>
   );
@@ -83,24 +85,24 @@ function PieChart({ icon, title, description, height, chart }) {
 
 // Setting default values for the props of PieChart
 PieChart.defaultProps = {
-  icon: { color: "info", component: "" },
-  title: "",
-  description: "",
-  height: "19.125rem",
+  icon: { color: 'info', component: '' },
+  title: '',
+  description: '',
+  height: '19.125rem',
 };
 
 // Typechecking props for the PieChart
 PieChart.propTypes = {
   icon: PropTypes.shape({
     color: PropTypes.oneOf([
-      "primary",
-      "secondary",
-      "info",
-      "success",
-      "warning",
-      "error",
-      "light",
-      "dark",
+      'primary',
+      'secondary',
+      'info',
+      'success',
+      'warning',
+      'error',
+      'light',
+      'dark',
     ]),
     component: PropTypes.node,
   }),

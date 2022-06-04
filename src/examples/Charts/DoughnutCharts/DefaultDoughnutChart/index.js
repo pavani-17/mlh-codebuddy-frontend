@@ -13,26 +13,28 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
 // porp-types is a library for typechecking of props
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // react-chartjs-2 components
-import { Doughnut } from "react-chartjs-2";
+import { Doughnut } from 'react-chartjs-2';
 
 // @mui material components
-import Card from "@mui/material/Card";
-import Icon from "@mui/material/Icon";
+import Card from '@mui/material/Card';
+import Icon from '@mui/material/Icon';
 
 // Material Dashboard 2 React components
-import MDBox from "components/MDBox";
-import MDTypography from "components/MDTypography";
+import MDBox from 'components/MDBox';
+import MDTypography from 'components/MDTypography';
 
 // DefaultDoughnutChart configurations
-import configs from "examples/Charts/DoughnutCharts/DefaultDoughnutChart/configs";
+import configs from 'examples/Charts/DoughnutCharts/DefaultDoughnutChart/configs';
 
-function DefaultDoughnutChart({ icon, title, description, height, chart }) {
+function DefaultDoughnutChart({
+  icon, title, description, height, chart,
+}) {
   const { data, options } = configs(chart.labels || [], chart.datasets || {}, chart.cutout);
 
   const renderChart = (
@@ -43,9 +45,9 @@ function DefaultDoughnutChart({ icon, title, description, height, chart }) {
             <MDBox
               width="4rem"
               height="4rem"
-              bgColor={icon.color || "info"}
+              bgColor={icon.color || 'info'}
               variant="gradient"
-              coloredShadow={icon.color || "info"}
+              coloredShadow={icon.color || 'info'}
               borderRadius="xl"
               display="flex"
               justifyContent="center"
@@ -73,7 +75,7 @@ function DefaultDoughnutChart({ icon, title, description, height, chart }) {
             <Doughnut data={data} options={options} />
           </MDBox>
         ),
-        [chart, height]
+        [chart, height],
       )}
     </MDBox>
   );
@@ -83,24 +85,24 @@ function DefaultDoughnutChart({ icon, title, description, height, chart }) {
 
 // Setting default values for the props of DefaultDoughnutChart
 DefaultDoughnutChart.defaultProps = {
-  icon: { color: "info", component: "" },
-  title: "",
-  description: "",
-  height: "19.125rem",
+  icon: { color: 'info', component: '' },
+  title: '',
+  description: '',
+  height: '19.125rem',
 };
 
 // Typechecking props for the DefaultDoughnutChart
 DefaultDoughnutChart.propTypes = {
   icon: PropTypes.shape({
     color: PropTypes.oneOf([
-      "primary",
-      "secondary",
-      "info",
-      "success",
-      "warning",
-      "error",
-      "light",
-      "dark",
+      'primary',
+      'secondary',
+      'info',
+      'success',
+      'warning',
+      'error',
+      'light',
+      'dark',
     ]),
     component: PropTypes.node,
   }),
