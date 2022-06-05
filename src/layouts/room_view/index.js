@@ -14,7 +14,6 @@ import ComplexStatisticsCard from 'examples/Cards/StatisticsCards/ComplexStatist
 import reportsLineChartData from 'layouts/dashboard/data/reportsLineChartData';
 
 // Dashboard components
-import Projects from 'layouts/dashboard/components/Projects';
 import OrdersOverview from 'layouts/dashboard/components/OrdersOverview';
 
 import Card from '@mui/material/Card';
@@ -42,13 +41,144 @@ import CoverLayout from 'layouts/authentication/components/CoverLayout';
 // Images
 import bgImage from 'assets/images/bg-sign-up-cover.jpeg';
 
+import { useState } from 'react';
+import { Modal} from '@mui/material';
+
+
+// @mui material components
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+
+// Material Dashboard 2 React components
+
+// Material Dashboard 2 React examples
+import DataTable from 'examples/Tables/DataTable';
+import logoXD from 'assets/images/small-logos/logo-xd.svg';
+import MDAvatar from 'components/MDAvatar';
+
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const data = () => {
+    const avatars = (members) => members.map(([image, name]) => (
+      <Tooltip key={name} title={name} placeholder="bottom">
+        <MDAvatar
+          src={image}
+          alt="name"
+          size="xs"
+          sx={{
+            border: ({ borders: { borderWidth }, palette: { white } }) => `${borderWidth[2]} solid ${white.main}`,
+            cursor: 'pointer',
+            position: 'relative',
+  
+            '&:not(:first-of-type)': {
+              ml: -1.25,
+            },
+  
+            '&:hover, &:focus': {
+              zIndex: '10',
+            },
+          }}
+        />
+      </Tooltip>
+    ));
+  
+    const Company = ({ image, name }) => (
+      <MDBox display="flex" alignItems="center" lineHeight={1}>
+        <MDAvatar src={image} name={name} size="sm" />
+        <MDTypography variant="button" fontWeight="medium" ml={1} lineHeight={1}>
+          {name}
+        </MDTypography>
+      </MDBox>
+    );
+  
+    return {
+      columns: [
+        {
+          Header: 'issues', accessor: 'issues', width: '45%', align: 'left',
+        },
+        {
+          Header: 'priority', accessor: 'priority', width: '10%', align: 'left',
+        },
+        { Header: 'tokens', accessor: 'tokens', align: 'center' },
+        { Header: 'time', accessor: 'time', align: 'center' },
+        { Header: 'tags', accessor: 'tags', align: 'center' },
+        { Header: '', accessor: 'button', align: 'center' },
+      ],
+  
+      rows: [
+        {
+          issues: <Company image={logoXD} name="Material UI XD Version" />,
+          priority: (
+            <MDTypography variant="button" fontWeight="medium" ml={1} lineHeight={1}>
+            High
+            </MDTypography>
+          ),
+          tokens: (
+            <MDTypography variant="caption" color="text" fontWeight="medium">
+              14,000
+            </MDTypography>
+          ),
+          time: (
+            <MDTypography variant="caption" color="text" fontWeight="medium">
+              15
+            </MDTypography>
+          ),
+          tags: (
+            <MDBox>
+              <MDBox>
+              <MDTypography variant="button" fontWeight="medium" ml={1} lineHeight={1}>
+              promises
+              </MDTypography>
+              </MDBox>
+              <MDBox>
+              <MDTypography variant="button" fontWeight="medium" ml={1} lineHeight={1}>
+              async
+              </MDTypography>
+              </MDBox>
+            </MDBox>
+          ),
+          button: (
+            <MDBox mt={4} mb={1}>
+            <MDButton variant="gradient" color="info" fullWidth onClick={handleOpen}>
+                Help
+            </MDButton>
+            </MDBox>
+          )
+        }
+      ],
+    };
+  }
+
+  const { columns, rows } = data();
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <div className='container'>
+        <Modal open={open} onClose={handleClose} style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
+          <Grid item xs={12} md={6} lg={3}>
+            <MDBox mb={1.5}>
+              <ComplexStatisticsCard
+                color="dark"
+                icon="weekend"
+                title="Bookings"
+                count={281}
+                percentage={{
+                  color: 'success',
+                  amount: '+55%',
+                  label: 'than lask week',
+                }}
+              />
+            </MDBox>
+          </Grid>             
+        </Modal>
+      </div>
+      
       <MDBox py={3}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={3}>
@@ -114,7 +244,22 @@ function Dashboard() {
         <MDBox>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={8}>
-              <Projects />
+              <Card>
+                <MDBox display="flex" alignItems="center" p={3}>
+                  <MDTypography variant="h6" gutterBottom>
+                    Unsolved issues
+                  </MDTypography>
+                </MDBox>
+                <MDBox>
+                  <DataTable
+                    table={{ columns, rows }}
+                    showTotalEntries={false}
+                    isSorted={false}
+                    noEndBorder
+                    entriesPerPage={false}
+                  />
+                </MDBox>
+              </Card>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
                 <Card>
