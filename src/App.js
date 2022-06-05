@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 
 // react-router components
 import {
@@ -19,26 +19,12 @@ import Configurator from 'examples/Configurator';
 
 // Material Dashboard 2 React themes
 import theme from 'assets/theme';
-import themeRTL from 'assets/theme/theme-rtl';
-
-// Material Dashboard 2 React Dark Mode themes
-import themeDark from 'assets/theme-dark';
-import themeDarkRTL from 'assets/theme-dark/theme-rtl';
-
-// RTL plugins
-import rtlPlugin from 'stylis-plugin-rtl';
-import { CacheProvider } from '@emotion/react';
-import createCache from '@emotion/cache';
 
 // Material Dashboard 2 React routes
 import routes from 'routes';
 
 // Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from 'context';
-
-// Images
-import brandWhite from 'assets/images/logo-ct.png';
-import brandDark from 'assets/images/logo-ct-dark.png';
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
@@ -48,23 +34,9 @@ export default function App() {
     layout,
     openConfigurator,
     sidenavColor,
-    transparentSidenav,
-    whiteSidenav,
-    darkMode,
   } = controller;
   const [onMouseEnter, setOnMouseEnter] = useState(false);
-  const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
-
-  // Cache for the rtl
-  useMemo(() => {
-    const cacheRtl = createCache({
-      key: 'rtl',
-      stylisPlugins: [rtlPlugin],
-    });
-
-    setRtlCache(cacheRtl);
-  }, []);
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
@@ -132,40 +104,13 @@ export default function App() {
     </MDBox>
   );
 
-  return direction === 'rtl' ? (
-    <CacheProvider value={rtlCache}>
-      <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
-        <CssBaseline />
-        {layout === 'dashboard' && (
-          <>
-            <Sidenav
-              color={sidenavColor}
-              brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-              brandName="Material Dashboard 2"
-              routes={routes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
-            <Configurator />
-            {configsButton}
-          </>
-        )}
-        {layout === 'vr' && <Configurator />}
-        <Routes>
-          {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
-        </Routes>
-      </ThemeProvider>
-    </CacheProvider>
-  ) : (
-    <ThemeProvider theme={darkMode ? themeDark : theme}>
+  return (
+    <ThemeProvider theme={theme}>
       <CssBaseline />
       {layout === 'dashboard' && (
         <>
           <Sidenav
             color={sidenavColor}
-            brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-            brandName="Material Dashboard 2"
             routes={routes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
@@ -177,7 +122,7 @@ export default function App() {
       {layout === 'vr' && <Configurator />}
       <Routes>
         {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
+        <Route path="*" element={<Navigate to="/rooms" />} />
       </Routes>
     </ThemeProvider>
   );

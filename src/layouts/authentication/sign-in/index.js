@@ -7,7 +7,6 @@ import axios from 'axios';
 
 // @mui material components
 import Card from '@mui/material/Card';
-import Switch from '@mui/material/Switch';
 import Grid from '@mui/material/Grid';
 import MuiLink from '@mui/material/Link';
 
@@ -29,30 +28,30 @@ import BasicLayout from 'layouts/authentication/components/BasicLayout';
 import bgImage from 'assets/images/bg-sign-in-basic.jpeg';
 
 function Basic() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = () => {
     axios({
-      method: "POST",
-      url: "http://localhost:4000/v1/auth/login",
+      method: 'POST',
+      url: 'http://localhost:4000/v1/auth/login',
       data: {
-        "email":email,
-        "password":password
+        email,
+        password,
       },
       headers: {
-        'Content-Type' : 'application/json',
-    }
+        'Content-Type': 'application/json',
+      },
     }).then((response) => {
-      localStorage.setItem("token", response.data.accessToken);
-      localStorage.setItem("user_id", response.data.id);
-      localStorage.setItem("isLoggedIn", true);
+      localStorage.setItem('token', response.data.accessToken);
+      localStorage.setItem('user_id', response.data.id);
+      localStorage.setItem('isLoggedIn', true);
 
-      alert("Login successful");
+      alert('Login successful');
     }).catch((error) => {
-        alert(JSON.stringify(error.response));
+      alert(JSON.stringify(error.response));
     });
-  }
+  };
 
   return (
     <BasicLayout image={bgImage}>
@@ -92,10 +91,10 @@ function Basic() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="text" label="Email" value={email} onChange={(event) => {setEmail(event.target.value);}} fullWidth/>
+              <MDInput type="text" label="Email" value={email} onChange={(event) => { setEmail(event.target.value); }} fullWidth />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" value={password} onChange={(event) => {setPassword(event.target.value);}} fullWidth/>
+              <MDInput type="password" label="Password" value={password} onChange={(event) => { setPassword(event.target.value); }} fullWidth />
             </MDBox>
             <MDBox mt={4} mb={1}>
               <MDButton variant="gradient" color="info" fullWidth onClick={handleSubmit}>
