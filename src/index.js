@@ -21,11 +21,15 @@ import App from 'App';
 // Material Dashboard 2 React Context Provider
 import { MaterialUIControllerProvider } from 'context';
 
+import { CookiesProvider } from 'react-cookie';
+
 ReactDOM.render(
-  <BrowserRouter>
-    <MaterialUIControllerProvider>
-      <App />
-    </MaterialUIControllerProvider>
-  </BrowserRouter>,
+  <CookiesProvider>
+    <BrowserRouter>
+      <MaterialUIControllerProvider>
+        <App />
+      </MaterialUIControllerProvider>
+    </BrowserRouter>
+  </CookiesProvider>,
   document.getElementById('root'),
 );
