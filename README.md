@@ -25,14 +25,9 @@
 
 👤 Pavani Babburi
 
-- GitHub: [@githubhandle](https://github.com/pavani-17)
-- LinkedIn: [LinkedIn](https://www.linkedin.com/in/pavani-babburi/)
+👤 Ahmad
 
-👤 Author2
-
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+👤 Yichen
 
 ## Show your support
 
