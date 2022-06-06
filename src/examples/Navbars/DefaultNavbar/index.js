@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect } from 'react';
 
 // react-router components
@@ -23,12 +8,11 @@ import PropTypes from 'prop-types';
 
 // @mui material components
 import Container from '@mui/material/Container';
-import Icon from '@mui/material/Icon';
 
 // Material Dashboard 2 React components
 import MDBox from 'components/MDBox';
-import MDTypography from 'components/MDTypography';
 import MDButton from 'components/MDButton';
+import MDTypography from 'components/MDTypography';
 
 // Material Dashboard 2 React example components
 import DefaultNavbarLink from 'examples/Navbars/DefaultNavbar/DefaultNavbarLink';
@@ -102,20 +86,18 @@ function DefaultNavbar({ transparent, light, action }) {
           backdropFilter: transparent ? 'none' : 'saturate(200%) blur(30px)',
         })}
       >
-        <MDBox
-          component={Link}
-          to="/"
-          py={transparent ? 1.5 : 0.75}
-          lineHeight={1}
-          pl={{ xs: 0, lg: 1 }}
-        >
-          <MDTypography variant="button" fontWeight="bold" color={light ? 'white' : 'dark'}>
-            Material Dashboard 2
-          </MDTypography>
-        </MDBox>
         <MDBox color="inherit" display={{ xs: 'none', lg: 'flex' }} m={0} p={0}>
-          <DefaultNavbarLink icon="donut_large" name="dashboard" route="/dashboard" light={light} />
-          <DefaultNavbarLink icon="person" name="profile" route="/profile" light={light} />
+          <MDBox
+            component={Link}
+            to="/"
+            py={transparent ? 1.5 : 0.75}
+            lineHeight={1}
+            pl={{ xs: 0, lg: 1 }}>
+            <MDTypography variant="button" fontWeight="bold" color={light ? 'white' : 'dark'}>
+              Code Buddy
+            </MDTypography>
+          </MDBox>
+
           <DefaultNavbarLink
             icon="account_circle"
             name="sign up"
@@ -129,48 +111,9 @@ function DefaultNavbar({ transparent, light, action }) {
             light={light}
           />
         </MDBox>
-        {action
-          && (action.type === 'internal' ? (
-            <MDBox display={{ xs: 'none', lg: 'inline-block' }}>
-              <MDButton
-                component={Link}
-                to={action.route}
-                variant="gradient"
-                color={action.color ? action.color : 'info'}
-                size="small"
-              >
-                {action.label}
-              </MDButton>
-            </MDBox>
-          ) : (
-            <MDBox display={{ xs: 'none', lg: 'inline-block' }}>
-              <MDButton
-                component="a"
-                href={action.route}
-                target="_blank"
-                rel="noreferrer"
-                variant="gradient"
-                color={action.color ? action.color : 'info'}
-                size="small"
-                sx={{ mt: -0.3 }}
-              >
-                {action.label}
-              </MDButton>
-            </MDBox>
-          ))}
-        <MDBox
-          display={{ xs: 'inline-block', lg: 'none' }}
-          lineHeight={0}
-          py={1.5}
-          pl={1.5}
-          color="inherit"
-          sx={{ cursor: 'pointer' }}
-          onClick={openMobileNavbar}
-        >
-          <Icon fontSize="default">{mobileNavbar ? 'close' : 'menu'}</Icon>
-        </MDBox>
       </MDBox>
       {mobileView && <DefaultNavbarMobile open={mobileNavbar} close={closeMobileNavbar} />}
+      
     </Container>
   );
 }

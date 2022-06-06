@@ -34,11 +34,6 @@ function CoverLayout({ coverHeight, image, children }) {
   return (
     <PageLayout>
       <DefaultNavbar
-        action={{
-          type: 'external',
-          route: 'https://creative-tim.com/product/material-dashboard-react',
-          label: 'free download',
-        }}
         transparent
         light
       />
@@ -68,7 +63,6 @@ function CoverLayout({ coverHeight, image, children }) {
           </Grid>
         </Grid>
       </MDBox>
-      <Footer />
     </PageLayout>
   );
 }

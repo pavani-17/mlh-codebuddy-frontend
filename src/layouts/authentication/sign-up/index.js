@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 
 // @mui material components
 import Card from '@mui/material/Card';
-import Checkbox from '@mui/material/Checkbox';
 
 // Material Dashboard 2 React components
 import MDBox from 'components/MDBox';
@@ -21,33 +20,37 @@ import CoverLayout from 'layouts/authentication/components/CoverLayout';
 // Images
 import bgImage from 'assets/images/bg-sign-up-cover.jpeg';
 
+import  { Navigate } from 'react-router-dom'
+
 function Cover() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = () => {
     axios({
-      method: "POST",
-      url: "http://localhost:4000/v1/auth/register",
+      method: 'POST',
+      url: 'http://localhost:4003/v1/auth/register',
       data: {
-        "email":email,
-        "password":password,
+        email,
+        password,
       },
       headers: {
-        'Content-Type' : 'application/json',
-    }
+        'Content-Type': 'application/json',
+      },
     }).then((response) => {
-      
-      localStorage.setItem("token", response.data.accessToken);
-      localStorage.setItem("user_id", response.data.user.id);
-      localStorage.setItem("isLoggedIn", true);
-
-      alert("Signup successful");
+      localStorage.setItem('token', response.data.accessToken);
+      localStorage.setItem('user_id', response.data.user.id);
+      localStorage.setItem('isLoggedIn', true);
     }).catch((error) => {
-        alert(JSON.stringify(error.response));
+      console.log(error);
     });
+  };
+  if(localStorage.getItem('isLoggedIn'))
+  {
+    return <Navigate to="/rooms" />
   }
-
+  else
+  {
   return (
     <CoverLayout image={bgImage}>
       <Card>
@@ -72,10 +75,10 @@ function Cover() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" variant="standard" value={email} onChange={(event) => {setEmail(event.target.value);}} fullWidth />
+              <MDInput type="email" label="Email" variant="standard" value={email} onChange={(event) => { setEmail(event.target.value); }} fullWidth />
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" variant="standard" value={password} onChange={(event) => {setPassword(event.target.value);}} fullWidth />
+              <MDInput type="password" label="Password" variant="standard" value={password} onChange={(event) => { setPassword(event.target.value); }} fullWidth />
             </MDBox>
             <MDBox mt={4} mb={1}>
               <MDButton variant="gradient" color="info" fullWidth onClick={handleSubmit}>
@@ -103,6 +106,7 @@ function Cover() {
       </Card>
     </CoverLayout>
   );
+  }
 }
 
 export default Cover;

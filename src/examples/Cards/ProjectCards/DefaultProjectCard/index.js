@@ -53,6 +53,8 @@ function DefaultProjectCard({
     </Tooltip>
   ));
 
+  localStorage.setItem('room_id', action.room_id);
+
   return (
     <Card
       sx={{
