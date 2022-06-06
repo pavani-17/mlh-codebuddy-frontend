@@ -20,6 +20,8 @@ import CoverLayout from 'layouts/authentication/components/CoverLayout';
 // Images
 import bgImage from 'assets/images/bg-sign-up-cover.jpeg';
 
+import  { Navigate } from 'react-router-dom'
+
 function Cover() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,7 +29,7 @@ function Cover() {
   const handleSubmit = () => {
     axios({
       method: 'POST',
-      url: 'http://localhost:4000/v1/auth/register',
+      url: 'http://localhost:4003/v1/auth/register',
       data: {
         email,
         password,
@@ -45,7 +47,12 @@ function Cover() {
       alert(JSON.stringify(error.response));
     });
   };
-
+  if(localStorage.getItem('isLoggedIn'))
+  {
+    return <Navigate to="/rooms" />
+  }
+  else
+  {
   return (
     <CoverLayout image={bgImage}>
       <Card>
@@ -101,6 +108,7 @@ function Cover() {
       </Card>
     </CoverLayout>
   );
+  }
 }
 
 export default Cover;
