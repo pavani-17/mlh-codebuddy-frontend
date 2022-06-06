@@ -49,12 +49,10 @@ function Basic() {
       localStorage.setItem('token', response.data.token.accessToken);
       localStorage.setItem('user_id', response.id);
       localStorage.setItem('isLoggedIn', true);
-
-      alert('Login successful'); 
       
       window.location.reload();
     }).catch((error) => {
-      alert(JSON.stringify(error.response));
+      console.log(error);
     });
   };
   if(localStorage.getItem('isLoggedIn'))

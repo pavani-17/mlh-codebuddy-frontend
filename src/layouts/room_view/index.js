@@ -28,6 +28,9 @@ import MDAvatar from 'components/MDAvatar';
 
 import  { Navigate } from 'react-router-dom'
 
+import Pusher from 'pusher-js';
+import Push from 'push.js';
+
 import axios from 'axios';
 
 function Dashboard() {
@@ -38,6 +41,24 @@ function Dashboard() {
   const [tokens, setTokens] = useState('');
   const [estimatedTime, setTime] = useState('');
   const [tags, setTags] = useState('');
+
+  var pusher = new Pusher('ef60dccb025588632050', {
+    cluster: 'ap2'
+  });
+
+  var channel = pusher.subscribe('general');
+  channel.bind('general', function(data) {
+    // alert(JSON.stringify(data));
+    Push.create("Help Needed", {
+      body: data.message,
+      timeout: 10000,
+      onClick: function () {
+          window.open(data.meetLink);
+          this.close();
+      }
+    });  
+  });
+
 
   const onClickHelp = (event) => {
     let id = event.target.id;
@@ -71,9 +92,10 @@ function Dashboard() {
         'Authorization': 'Bearer ' + localStorage.getItem("token"),
       },
     }).then((response) => {
-      alert(response);
+      var meet_link = response.data.url;
+      window.open(meet_link);
     }).catch((error) => {
-      alert(JSON.stringify(error.response));
+      console.log(error);
     });
   };
 
@@ -94,7 +116,7 @@ function Dashboard() {
       }).then((response) => {
         setIssues(response.data);
       }).catch((error) => {
-        alert(JSON.stringify(error.response));
+        console.log(error);
       });
     }, []);
 

@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 
 // @mui material components
 import Container from '@mui/material/Container';
-import Icon from '@mui/material/Icon';
 
 // Material Dashboard 2 React components
 import MDBox from 'components/MDBox';
 import MDButton from 'components/MDButton';
+import MDTypography from 'components/MDTypography';
 
 // Material Dashboard 2 React example components
 import DefaultNavbarLink from 'examples/Navbars/DefaultNavbar/DefaultNavbarLink';
@@ -87,6 +87,17 @@ function DefaultNavbar({ transparent, light, action }) {
         })}
       >
         <MDBox color="inherit" display={{ xs: 'none', lg: 'flex' }} m={0} p={0}>
+          <MDBox
+            component={Link}
+            to="/"
+            py={transparent ? 1.5 : 0.75}
+            lineHeight={1}
+            pl={{ xs: 0, lg: 1 }}>
+            <MDTypography variant="button" fontWeight="bold" color={light ? 'white' : 'dark'}>
+              Code Buddy
+            </MDTypography>
+          </MDBox>
+
           <DefaultNavbarLink
             icon="account_circle"
             name="sign up"

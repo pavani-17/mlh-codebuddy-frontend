@@ -36,7 +36,7 @@ function Overview() {
     }).then((response) => {
       setRooms(response.data);
     }).catch((error) => {
-      alert(JSON.stringify(error.response));
+      console.log(error);
     });
   });
 

@@ -41,10 +41,8 @@ function Cover() {
       localStorage.setItem('token', response.data.accessToken);
       localStorage.setItem('user_id', response.data.user.id);
       localStorage.setItem('isLoggedIn', true);
-
-      alert('Signup successful');
     }).catch((error) => {
-      alert(JSON.stringify(error.response));
+      console.log(error);
     });
   };
   if(localStorage.getItem('isLoggedIn'))
